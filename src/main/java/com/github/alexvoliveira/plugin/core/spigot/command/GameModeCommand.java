@@ -10,52 +10,35 @@ import org.bukkit.entity.Player;
 public final class GameModeCommand {
 
     @Command(name = "gamemode", aliases = {"gm", "mododejogo", "modo-de-jogo"}, target = CommandTarget.PLAYER)
-    public void handleGMCommand(Context<Player> context, @Optional String mode, @Optional Player target) {
-        final Player user = context.getSender();
+    public void handleGMCommand(Context<Player> context, @Optional(def = {"s"}) String modeInput) {
+        Player user = context.getSender();
 
-        if(!user.hasPermission("core.command.permission.gm")) {
-            user.sendMessage("§4§l[✖]INFO ➜ §fO comando §cnão §ffoi §cencontrado!");
+        modeInput = modeInput.toLowerCase();
+
+        if (modeInput.equals("c")) {
+            user.setGameMode(GameMode.CREATIVE);
+            context.sendMessage("Seu modo de jogo foi alterado para CREATIVE.");
             return;
         }
 
-        if (mode == null) {
-            user.sendMessage("§4§lGAMEMODE ➜ §fUso correto: /gamemode <modo> [jogador]");
+        if (modeInput.equals("s")) {
+            user.setGameMode(GameMode.SURVIVAL);
+            context.sendMessage("Seu modo de jogo foi alterado para SURVIVAL.");
             return;
         }
 
-        final Player player = target != null ? target : user;
-        final GameMode gm = parseGameMode(mode);
-
-        if (gm == null) {
-            user.sendMessage("§c§lGAMEMODE ➜ §fModo de jogo §cinválido!");
+        if (modeInput.equals("sp")) {
+            user.setGameMode(GameMode.SPECTATOR);
+            context.sendMessage("Seu modo de jogo foi alterado para SPECTATOR.");
             return;
         }
 
-        player.setGameMode(gm);
-        user.sendMessage("§b§lGAMEMODE ➜ §fModo de jogo de §7" + player.getName() + " §fatualizado para §7" + gm.name());
-    }
-
-    private GameMode parseGameMode(String input) {
-        if (input == null) return null;
-
-        input = input.toLowerCase();
-        switch (input) {
-            case "s":
-            case "0":
-            case "survival":
-                return GameMode.SURVIVAL;
-            case "c":
-            case "1":
-            case "creative":
-                return GameMode.CREATIVE;
-            case "2":
-            case "adventure":
-                return GameMode.ADVENTURE;
-            case "3":
-            case "spectator":
-                return GameMode.SPECTATOR;
-            default:
-                return null;
+        if (modeInput.equals("a")) {
+            user.setGameMode(GameMode.ADVENTURE);
+            context.sendMessage("Seu modo de jogo foi alterado para ADVENTURE.");
+            return;
         }
+
+        context.sendMessage("Modo de jogo inválido! Use c/s/a.");
     }
 }
