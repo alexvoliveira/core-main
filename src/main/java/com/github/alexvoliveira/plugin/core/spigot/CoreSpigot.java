@@ -17,7 +17,7 @@ public final class CoreSpigot extends JavaPlugin {
 
         stopwatch.stop();
         getServer().getConsoleSender().sendMessage(
-                "§e§lCORE SPIGOT ➜ §7The plugin §eloaded §7in §a" + stopwatch);
+                "§e§lCORE SPIGOT ➜ §7Plugin §ecarregado §7em §a" + stopwatch);
     }
 
     @Override
@@ -29,7 +29,7 @@ public final class CoreSpigot extends JavaPlugin {
 
         stopwatch.stop();
         getServer().getConsoleSender().sendMessage(
-                "§a§lCORE SPIGOT ➜ §7The was plugin §aactivated §7in §a" + stopwatch);
+                "§a§lCORE SPIGOT ➜ §7Plugin §aativado §7em §a" + stopwatch);
     }
 
     @Override
@@ -38,7 +38,7 @@ public final class CoreSpigot extends JavaPlugin {
 
         stopwatch.stop();
         getServer().getConsoleSender().sendMessage(
-                "§4§lCORE SPIGOT ➜ §7The was plugin §cdeactivated §7in §a" + stopwatch);
+                "§4§lCORE SPIGOT ➜ §7Plugin §cdesativado §7em §a" + stopwatch);
     }
 
     private void inventory() {
@@ -46,7 +46,7 @@ public final class CoreSpigot extends JavaPlugin {
             InventoryManager.enable(this);
         } catch (Exception e) {
             getServer().getConsoleSender().sendMessage(
-                    "§4§lCORE SPIGOT ➜ §7Failed to load §binventory §c" + e.getMessage());
+                    "§4§lCORE SPIGOT ➜ §7Falha ao carregar o §binventário: §c" + e.getMessage());
             e.printStackTrace();
             return;
         }
@@ -59,7 +59,7 @@ public final class CoreSpigot extends JavaPlugin {
             commandService.load();
         } catch (Exception e) {
             getServer().getConsoleSender().sendMessage(
-                    "§4§lCORE SPIGOT ➜ §7Failed to load the §aservices: §c" + e.getMessage());
+                    "§4§lCORE SPIGOT ➜ §7Falha ao carregar os §aserviços: §c" + e.getMessage());
             e.printStackTrace();
             return;
         }

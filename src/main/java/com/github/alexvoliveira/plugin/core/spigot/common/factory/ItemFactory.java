@@ -66,7 +66,7 @@ public final class ItemFactory {
             this.itemMeta = skullMeta;
 
         } catch (Exception e) {
-            System.err.println("ITEM FACTORY ➜ Failed to set skull owner URL: " + e.getMessage());
+            System.err.println("§4§lITEM FACTORY ➜ §7Falha ao definir URL da cabeça: §c" + e.getMessage());
             e.printStackTrace();
         }
 
