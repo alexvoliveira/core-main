@@ -32,7 +32,7 @@
 | `inventory-api` | 2.0.3 | Gerenciamento de inventários (HenryFabio) |
 | `command-framework` | 1.3.1 | Sistema de comandos (SaiintBrisson) |
 | `PlaceholderAPI` | 2.11.7 | Placeholders |
-| `NPCLibPlugin` | local | NPCs |
+| `NPCLibPlugin` | 2.13.1 | NPCs |
 
 ## Estrutura
 
