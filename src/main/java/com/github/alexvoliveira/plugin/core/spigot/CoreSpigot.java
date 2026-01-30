@@ -7,12 +7,14 @@ import lombok.Getter;
 import org.bukkit.plugin.java.JavaPlugin;
 
 @Getter
+@SuppressWarnings("UnstableApiUsage")
 public final class CoreSpigot extends JavaPlugin {
 
     private CommandService commandService;
 
     @Override
     public void onLoad() {
+        @SuppressWarnings("UnstableApiUsage")
         final Stopwatch stopwatch = Stopwatch.createStarted();
 
         stopwatch.stop();
@@ -47,8 +49,7 @@ public final class CoreSpigot extends JavaPlugin {
         } catch (Exception e) {
             getServer().getConsoleSender().sendMessage(
                     "§4§lCORE SPIGOT ➜ §7Falha ao carregar o §binventário: §c" + e.getMessage());
-            e.printStackTrace();
-            return;
+            getLogger().severe("Erro ao carregar inventário: " + e.getMessage());
         }
     }
 
@@ -60,8 +61,7 @@ public final class CoreSpigot extends JavaPlugin {
         } catch (Exception e) {
             getServer().getConsoleSender().sendMessage(
                     "§4§lCORE SPIGOT ➜ §7Falha ao carregar os §aserviços: §c" + e.getMessage());
-            e.printStackTrace();
-            return;
+            getLogger().severe("Erro ao carregar serviços: " + e.getMessage());
         }
     }
 }
