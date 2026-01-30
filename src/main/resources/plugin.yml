@@ -1,4 +1,4 @@
 main: com.github.alexvoliveira.plugin.core.spigot.CoreSpigot
 name: core-main
 version: 1.0.0
-softdepend: [ PlaceholderAPI, nLoginAPI ]
+depend: [ NPCLibPlugin, PlaceholderAPI ]

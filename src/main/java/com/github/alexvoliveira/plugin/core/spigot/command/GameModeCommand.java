@@ -17,28 +17,32 @@ public final class GameModeCommand {
 
         if (modeInput.equals("c")) {
             user.setGameMode(GameMode.CREATIVE);
-            context.sendMessage("Seu modo de jogo foi alterado para CREATIVE.");
+            context.sendMessage("§b§lGM ➜ §fSeu modo de jogo foi alterado para §bcriativo.");
             return;
         }
 
         if (modeInput.equals("s")) {
             user.setGameMode(GameMode.SURVIVAL);
-            context.sendMessage("Seu modo de jogo foi alterado para SURVIVAL.");
+            context.sendMessage("§a§lGM ➜ §fSeu modo de jogo foi alterado para §asobrevivência.");
             return;
         }
 
         if (modeInput.equals("sp")) {
             user.setGameMode(GameMode.SPECTATOR);
-            context.sendMessage("Seu modo de jogo foi alterado para SPECTATOR.");
+            context.sendMessage("§7§lGM ➜ §fSeu modo de jogo foi alterado para §7espectador.");
             return;
         }
 
         if (modeInput.equals("a")) {
             user.setGameMode(GameMode.ADVENTURE);
-            context.sendMessage("Seu modo de jogo foi alterado para ADVENTURE.");
+            context.sendMessage("§e§lGM ➜ §fSeu modo de jogo foi alterado para §eaventura.");
             return;
         }
 
-        context.sendMessage("Modo de jogo inválido! Use c/s/a.");
+        context.sendMessage(new String[] {
+                "§4§l           [!]GM ➜ §fModo de jogo §cinválido!",
+                "",
+                "§a▸ §fOs valores corretos são: c/s/sp/a"
+        });
     }
 }
