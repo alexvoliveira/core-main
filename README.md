@@ -2,10 +2,10 @@
   <img src="https://img.shields.io/static/v1?label=Project&message=core-main&color=1f1f1f&style=for-the-badge&logo=Github" alt="core-main">
 </p>
 
-<h1 align="center">Core Main (INCOMPLETO)</h1>
+<h1 align="center">Core Main</h1>
 
 <p align="center">
-  Plugin Spigot 1.8.8 com gerenciamento de comandos, inventários e NPCs.
+  Plugin Spigot 1.8.8 base com comandos, inventários, views e utilitários compartilhados.
 </p>
 
 <p align="center">
@@ -27,45 +27,71 @@
 
 ## Dependências
 
-| Biblioteca | Versão | Descrição |
-|------------|--------|-----------|
+| Biblioteca | Versão | Descrição                                 |
+|------------|--------|-------------------------------------------|
 | `inventory-api` | 2.0.3 | Gerenciamento de inventários (HenryFabio) |
-| `command-framework` | 1.3.1 | Sistema de comandos (SaiintBrisson) |
-| `PlaceholderAPI` | 2.11.7 | Placeholders |
-| `NPCLibPlugin` | 2.13.1 | NPCs |
+| `command-framework` | 1.3.1 | Sistema de comandos (SaiintBrisson)       |
+| `PlaceholderAPI` | 2.11.7 | Placeholders (depend)                     |
+| `NPCLibPlugin` | 2.13.1 | NPCs (depend)                             |
 
 ## Estrutura
 
 ```
 src/main/java/com/github/alexvoliveira/plugin/core/spigot/
-├── CoreSpigot.java              # classe principal
+├── CoreSpigot.java                     # classe principal
 ├── command/
-│   └── GameModeCommand.java     # comando /gamemode
+│   └── GameModeCommand.java            # comando /gamemode
 ├── common/
 │   ├── enums/
-│   │   └── SkinsNpcEnums.java   # skins de NPCs
+│   │   ├── SkinsNpcEnums.java          # skins de NPCs
+│   │   └── type/
+│   │       └── GameType.java           # enum de modos de jogo
 │   ├── factory/
-│   │   └── ItemFactory.java     # builder de ItemStack
+│   │   └── ItemFactory.java            # builder de ItemStack
 │   └── util/
-│       └── PlaceholderUtil.java # utilitário de placeholders
-└── service/
-    └── CommandService.java      # registro de comandos
+│       └── PlaceholderUtil.java        # utilitário de placeholders
+├── service/
+│   └── CommandService.java             # registro de comandos
+└── view/
+    ├── AccountView.java                # GUI da conta do jogador
+    └── ServerView.java                 # GUI de seleção de servidores
 ```
 
 ## Funcionalidades
 
 ### Comandos
 - `/gamemode [modo]` - Altera modo de jogo
-    - Aliases: `gm`, `mododejogo`, `modo-de-jogo`
-    - Modos: criativo (c), sobrevivência (s), espectador (sp), aventura (a)
+  - Aliases: `gm`
+  - Modos aceitos:
+    - `survival`, `s`, `0` - Modo sobrevivência
+    - `criativo`, `c`, `1` - Modo criativo
+    - `aventura`, `a`, `2` - Modo aventura
+    - `espectador`, `sp`, `3` - Modo espectador
 
-### Recursos
-- Factory para criação de itens com suporte a cabeças customizadas
-- Integração com PlaceholderAPI e LuckPerms (suffix)
-- Enums com skins pré-configuradas para NPCs:
-    - SKYWARS
-    - BEDWARS
-    - EVENTS
+### Views (Inventários)
+- **AccountView** - Menu de conta do jogador
+  - Exibe skull do jogador
+  - Mostra cargo (via PlaceholderAPI/LuckPerms)
+  - Slot 13, título "Sua Conta."
+
+- **ServerView** - Menu de seleção de servidores
+  - Item SKYWARS (Eye of Ender)
+  - Slot 13, título "Sua Conta."
+
+### Sistema de Enums
+- **GameType** - Enum com suporte a aliases para GameMode
+- **SkinsNpcEnums** - Skins pré-configuradas:
+  - SKYWARS
+  - BEDWARS
+  - EVENTS
+
+### Utilitários
+- **ItemFactory** - Builder pattern para criação de ItemStack
+  - Suporte a cabeças customizadas (owner/URL)
+  - Lore, nome, durabilidade, slot
+
+- **PlaceholderUtil** - Integração com PlaceholderAPI
+  - Método `getRole(Player)` - retorna suffix do LuckPerms
 
 ## Build
 
@@ -77,10 +103,25 @@ Gera `core-main.jar` em `build/libs/` com dependências relocadas.
 
 ## Instalação
 
-1. Coloque `core-main.jar` em `plugins/`
-2. Coloque `NPCLibPlugin.jar` em `plugins/`
-3. Instale `PlaceholderAPI.jar` em `plugins/`
-4. Reinicie o servidor
+1. Coloque `NPCLibPlugin.jar` em `plugins/`
+2. Coloque `PlaceholderAPI.jar` em `plugins/`
+3. Coloque `LuckPerms.jar` em `plugins/`
+4. Coloque `core-main.jar` em `plugins/`
+5. Reinicie o servidor
+
+## Uso como Dependência
+
+Outros plugins podem depender do core-main adicionando no `plugin.yml`:
+
+```yaml
+depend: [ core-main ]
+```
+
+E referenciando no `build.gradle`:
+
+```gradle
+implementation files("../core-main/build/libs/core-main.jar")
+```
 
 ---
 
