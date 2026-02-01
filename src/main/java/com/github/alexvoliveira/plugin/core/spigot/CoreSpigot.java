@@ -14,7 +14,6 @@ public final class CoreSpigot extends JavaPlugin {
 
     @Override
     public void onLoad() {
-        @SuppressWarnings("UnstableApiUsage")
         final Stopwatch stopwatch = Stopwatch.createStarted();
 
         stopwatch.stop();
