@@ -14,8 +14,14 @@ public final class GameModeCommand {
             aliases = {"gm"},
             target = CommandTarget.PLAYER
     )
+
     public void handleGMCommand(Context<Player> context, @Optional String modeInput) {
         Player player = context.getSender();
+
+        if (!player.hasPermission("core.command.admin.gm")) {
+            context.sendMessage("§c§l[!]GM ➜ §fVocê §cnão§f tem §cpermissão.");
+            return;
+        }
 
         if (modeInput == null || modeInput.isEmpty()) {
             context.sendMessage("§c§l[!]GM ➜ §fUse: §7/gamemode <modo>");

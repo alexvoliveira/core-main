@@ -4,6 +4,7 @@ import com.github.alexvoliveira.plugin.core.spigot.service.CommandService;
 import com.google.common.base.Stopwatch;
 import com.henryfabio.minecraft.inventoryapi.manager.InventoryManager;
 import lombok.Getter;
+import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
 @Getter
@@ -25,8 +26,14 @@ public final class CoreSpigot extends JavaPlugin {
     public void onEnable() {
         final Stopwatch stopwatch = Stopwatch.createStarted();
 
-        services();
-        inventory();
+        if (!validateDependencies()) {
+            getLogger().severe("§c➜ Desabilitando plugin devido a dependências ausentes.");
+            getServer().getPluginManager().disablePlugin(this);
+            return;
+        }
+
+        loadServices();
+        loadInventory();
 
         stopwatch.stop();
         getServer().getConsoleSender().sendMessage(
@@ -42,17 +49,40 @@ public final class CoreSpigot extends JavaPlugin {
                 "§4§lCORE SPIGOT ➜ §7Plugin §cdesativado §7em §a" + stopwatch);
     }
 
-    private void inventory() {
+    private boolean validateDependencies() {
+        boolean npcLib = getServer().getPluginManager().getPlugin("NPCLibPlugin") != null;
+        boolean perms = getServer().getPluginManager().getPlugin("LuckPerms") != null;
+        boolean papi = getServer().getPluginManager().getPlugin("PlaceholderAPI") != null;
+
+        if (!npcLib) {
+            getLogger().severe("NPCLibPlugin não encontrado!");
+            return false;
+        }
+
+        if (!perms) {
+            getLogger().severe("LuckPerms não encontrado!");
+        }
+
+        if (!papi) {
+            getLogger().severe("PlaceholderAPI não encontrado!");
+            return false;
+        }
+
+        return true;
+    }
+
+    private void loadInventory() {
         try {
             InventoryManager.enable(this);
         } catch (Exception e) {
             getServer().getConsoleSender().sendMessage(
                     "§4§lCORE SPIGOT ➜ §7Falha ao carregar o §binventário: §c" + e.getMessage());
             getLogger().severe("Erro ao carregar inventário: " + e.getMessage());
+            getServer().getPluginManager().disablePlugin(this);
         }
     }
 
-    private void services() {
+    private void loadServices() {
         commandService = new CommandService(this);
 
         try {
@@ -61,6 +91,7 @@ public final class CoreSpigot extends JavaPlugin {
             getServer().getConsoleSender().sendMessage(
                     "§4§lCORE SPIGOT ➜ §7Falha ao carregar os §aserviços: §c" + e.getMessage());
             getLogger().severe("Erro ao carregar serviços: " + e.getMessage());
+            getServer().getPluginManager().disablePlugin(this);
         }
     }
 }

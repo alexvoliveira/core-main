@@ -1,6 +1,7 @@
 package com.github.alexvoliveira.plugin.core.spigot.service;
 
 import com.github.alexvoliveira.plugin.core.spigot.CoreSpigot;
+import com.github.alexvoliveira.plugin.core.spigot.command.BuildCommand;
 import com.github.alexvoliveira.plugin.core.spigot.command.GameModeCommand;
 import lombok.RequiredArgsConstructor;
 import me.saiintbrisson.bukkit.command.BukkitFrame;
@@ -14,5 +15,6 @@ public final class CommandService {
         final BukkitFrame frame = new BukkitFrame(plugin);
 
         frame.registerCommands(new GameModeCommand(), plugin);
+        frame.registerCommands(new BuildCommand(), plugin);
     }
 }
