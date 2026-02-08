@@ -35,18 +35,16 @@ public final class CoreSpigot extends JavaPlugin {
         loadServices();
         loadInventory();
 
-        stopwatch.stop();
         getServer().getConsoleSender().sendMessage(
-                "§a§lCORE SPIGOT ➜ §7Plugin §aativado §7em §a" + stopwatch);
+                "§a§lCORE SPIGOT ➜ §7Plugin §aativado §7em §a" + stopwatch.stop());
     }
 
     @Override
     public void onDisable() {
         final Stopwatch stopwatch = Stopwatch.createStarted();
 
-        stopwatch.stop();
         getServer().getConsoleSender().sendMessage(
-                "§4§lCORE SPIGOT ➜ §7Plugin §cdesativado §7em §a" + stopwatch);
+                "§4§lCORE SPIGOT ➜ §7Plugin §cdesativado §7em §a" + stopwatch.stop());
     }
 
     private boolean validateDependencies() {
