@@ -14,8 +14,11 @@ public enum SkinsNpcEnums {
 
     private final String value;
     private final String signature;
+    private final Skin skin;
 
-    public Skin skin() {
-        return new Skin(value, signature);
+    SkinsNpcEnums(String value, String signature) {
+        this.value = value;
+        this.signature = signature;
+        this.skin = new Skin(value, signature);
     }
 }

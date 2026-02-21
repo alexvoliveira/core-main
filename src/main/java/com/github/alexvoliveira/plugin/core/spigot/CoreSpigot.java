@@ -48,25 +48,17 @@ public final class CoreSpigot extends JavaPlugin {
     }
 
     private boolean validateDependencies() {
-        boolean npcLib = getServer().getPluginManager().getPlugin("NPCLibPlugin") != null;
-        boolean perms = getServer().getPluginManager().getPlugin("LuckPerms") != null;
-        boolean papi = getServer().getPluginManager().getPlugin("PlaceholderAPI") != null;
+        PluginManager pm = getServer().getPluginManager();
 
-        if (!npcLib) {
-            getLogger().severe("NPCLibPlugin não encontrado!");
-            return false;
-        }
+        boolean npcLib = pm.getPlugin("NPCLibPlugin") != null;
+        boolean perms  = pm.getPlugin("LuckPerms") != null;
+        boolean papi   = pm.getPlugin("PlaceholderAPI") != null;
 
-        if (!perms) {
-            getLogger().severe("LuckPerms não encontrado!");
-        }
+        if (!npcLib) getLogger().severe("NPCLibPlugin não encontrado!");
+        if (!perms)  getLogger().severe("LuckPerms não encontrado!");
+        if (!papi)   getLogger().severe("PlaceholderAPI não encontrado!");
 
-        if (!papi) {
-            getLogger().severe("PlaceholderAPI não encontrado!");
-            return false;
-        }
-
-        return true;
+        return npcLib && perms && papi;
     }
 
     private void loadInventory() {

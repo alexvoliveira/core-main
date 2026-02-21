@@ -74,8 +74,9 @@ public final class ItemFactory {
     }
 
     public ItemFactory name(String name) {
+        if (itemMeta == null) return this;
+
         itemMeta.setDisplayName(name);
-        itemStack.setItemMeta(itemMeta);
         return this;
     }
 
